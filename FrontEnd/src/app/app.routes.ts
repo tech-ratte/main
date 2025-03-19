@@ -25,3 +25,5 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
+
+export const appRoutes = provideRouter(routes, withComponentInputBinding(), { useHash: true });
