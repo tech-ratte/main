@@ -8,7 +8,8 @@ import { SheardFieldComponent } from '../../../core/sheard-field/shared-field.co
 import { PersonalResultService } from './personal-result.service';
 import { PlayerService } from '../player/player.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
 
 @Component({
@@ -87,7 +88,13 @@ export class GameComponent implements OnInit {
           // 登録したGameResultのIDを追加
           this.personalResult(i).patchValue({ game: response.id });
           // PlayerResultを登録
-          return this.personalResultService.create(control.value);
+          return this.personalResultService.create(control.value).pipe(
+            catchError(error => {
+              // エラーが発生しても処理を続ける
+              console.error('PlayerResult registration error', error);
+              return of(null); // エラーの場合はnullを返して次に進む
+            })
+          );
         });
         // 全てのcreateリクエストが完了するのを待つ
         forkJoin(createRequests).subscribe(() => {
