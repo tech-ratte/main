@@ -1,4 +1,4 @@
-import { Routes, provideRouter, withComponentInputBinding, withHashLocation } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CatanComponent } from './catan/catan.component';
 import { PlayerComponent } from './catan/player/player.component';
@@ -24,5 +24,3 @@ export const routes: Routes = [
     ],
   },
 ];
-
-export const appRoutes = provideRouter(routes, withComponentInputBinding(), withHashLocation());
