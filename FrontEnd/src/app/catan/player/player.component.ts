@@ -80,16 +80,16 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   Register(data: any): void {
     this.playerService.create(data).subscribe((response) => {
       console.log('Player created successfully:', response);
+      location.reload();
     });
-    location.reload();
   }
 
   // Playerを編集
   Edit(data: any): void {
     this.playerService.update(data).subscribe((response) => {
       console.log('Player updated successfully:', response);
+      location.reload();
     });
-    location.reload();
   }
 
   // Delete(id: string): void {
