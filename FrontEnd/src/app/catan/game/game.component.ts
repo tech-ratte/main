@@ -88,13 +88,7 @@ export class GameComponent implements OnInit {
           // 登録したGameResultのIDを追加
           this.personalResult(i).patchValue({ game: response.id });
           // PlayerResultを登録
-          return this.personalResultService.create(control.value).pipe(
-            catchError(error => {
-              // エラーが発生しても処理を続ける
-              console.error('PlayerResult registration error', error);
-              return of(null); // エラーの場合はnullを返して次に進む
-            })
-          );
+          return this.personalResultService.create(control.value);
         });
         // 全てのcreateリクエストが完了するのを待つ
         forkJoin(createRequests).subscribe(() => {
