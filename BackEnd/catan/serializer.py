@@ -30,7 +30,7 @@ class PersonalResultSerializer(serializers.ModelSerializer):
         player_data = {
             "id": instance.player.id,
             "name": instance.player.name,
-            "icon": settings.SITE_URL + instance.player.icon.url
+            "icon": f"{settings.SITE_URL}{instance.player.icon.url}" if instance.player.icon else None,
         }
         representation['player'] = player_data
         

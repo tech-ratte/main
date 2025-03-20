@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-0c_d8h&aj9vpzgr97vfyac3j^$h^=)@h_(=prgk0=v8659yf2o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# SITE_URL = 'http://127.0.0.1:8000'
+SITE_URL = 'https://main-8r55.onrender.com'
 
 ALLOWED_HOSTS = ['main-8r55.onrender.com', 'frontend-gn26.onrender.com', 'localhost', '127.0.0.1']
 
@@ -132,6 +134,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存�
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Whitenoiseを使用する
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
