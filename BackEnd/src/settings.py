@@ -134,3 +134,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存�
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Whitenoiseを使用する
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
