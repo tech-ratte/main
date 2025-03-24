@@ -84,9 +84,20 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'neondb',  # データベース名
+        'USER': 'neondb_owner',  # ユーザー名
+        'PASSWORD': 'npg_7nAItQKT5aFP',  # パスワード
+        'HOST': 'ep-delicate-darkness-a5wiogkb-pooler.us-east-2.aws.neon.tech',  # ホスト名（Neon のエンドポイント）
+        'PORT': '5432',  # ポート番号
+        'OPTIONS': {
+            'sslmode': 'require',  # SSL接続を要求
+        },
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3'
+    # }
 }
 
 
