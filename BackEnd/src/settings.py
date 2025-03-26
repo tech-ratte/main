@@ -155,3 +155,19 @@ AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
+
+# S3にアップロードされるファイルにデフォルトのACLを設定しない
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',  # キャッシュの制御（オプション）
+}
+
+# メディアファイルのアップロード先をS3に設定
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# 静的ファイル（CSS, JavaScriptなど）の設定
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# メディアファイル（画像など）のURL設定
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
