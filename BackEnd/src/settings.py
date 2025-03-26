@@ -148,8 +148,6 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 
-# メディアファイルのアップロード先をS3に設定
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # メディアファイル（画像など）のURL設定
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 # メディアファイルの保存場所
@@ -161,7 +159,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存�
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# 静的ファイル（CSS, JavaScriptなど）の設定
+
+# mediaファイル保存先
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# staticファイルの参照先
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # S3にアップロードされるファイルにデフォルトのACLを設定しない
