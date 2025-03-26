@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'catan',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -136,15 +137,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
-# メディアファイルの保存場所
-MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 # 環境変数を読み込むための設定
 env = environ.Env()
 # Render.comで設定した環境変数を読み込む
@@ -156,18 +148,24 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 
+# メディアファイルのアップロード先をS3に設定
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# メディアファイル（画像など）のURL設定
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+# メディアファイルの保存場所
+# MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# 静的ファイル（CSS, JavaScriptなど）の設定
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 # S3にアップロードされるファイルにデフォルトのACLを設定しない
 AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',  # キャッシュの制御（オプション）
 }
-
-# メディアファイルのアップロード先をS3に設定
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# 静的ファイル（CSS, JavaScriptなど）の設定
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# メディアファイル（画像など）のURL設定
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'

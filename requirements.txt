@@ -7,4 +7,6 @@ pillow==11.1.0
 sqlparse==0.5.3
 gunicorn==23.0.0
 psycopg2==2.9.10
+django-storages==1.14.5
 django-environ==0.12.0
+boto3==1.37.20  # AWS SDK for Python (S3用)
