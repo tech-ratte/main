@@ -1,7 +1,14 @@
 import { Component, Inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MAT_NATIVE_DATE_FORMATS,
+  NativeDateAdapter,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import { Role, Roles } from '../player.model';
 import { coreImports } from '../../../../core/core.imports';
 import { SheardFieldComponent } from '../../../../core/sheard-field/shared-field.component';
@@ -12,7 +19,14 @@ import { TimeFormatService } from '../../../../core/time-format/time-format.serv
   selector: 'app-register-player-dialog',
   imports: [...coreImports, SheardFieldComponent],
   templateUrl: './register-player-dialog.component.html',
-  providers: [provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'ja-JP' }],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: NativeDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
+  ],
   styleUrl: './register-player-dialog.component.scss',
 })
 export class RegisterPlayerDialogComponent {

@@ -11,6 +11,9 @@ from rest_framework.response import Response
 # from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import render
+from .forms import DocumentForm
+from .models import Document
 
 class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
@@ -27,6 +30,15 @@ class PlayerViewSet(viewsets.ModelViewSet):
     # ファイルアップロード対応
     parser_classes = (MultiPartParser, FormParser)
 
+    def upload_file(request):
+        if request.method == 'POST' and request.FILES['file']:
+            form = DocumentForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()  # モデルに保存され、S3にアップロードされる
+                return render(request, 'upload_success.html')
+        else:
+            form = DocumentForm()
+        return render(request, 'upload.html', {'form': form})
     # def update(self, request, *args, **kwargs):
     #     player = self.get_object()
     #     # プレイヤー情報の更新
