@@ -146,11 +146,18 @@ environ.Env.read_env()
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
+# AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 # S3にアップロードされるファイルにデフォルトのACLを設定しない
-AWS_DEFAULT_ACL = None
+AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',  # キャッシュの制御（オプション）
+}
+AWS_LOCATION = 'static'
+
+AWS_QUERYSTRING_AUTH = False
+
+AWS_HEADERS = {
+    'Access-Control-Allow-Origin': '*',
 }
 
 # メディアファイル（画像など）のURL設定
@@ -158,15 +165,15 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 # メディアファイルの保存場所
 # MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 # STATIC_URL = '/static/'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # mediaファイル保存先
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # # staticファイルの参照先
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
