@@ -30,15 +30,6 @@ class PlayerViewSet(viewsets.ModelViewSet):
     # ファイルアップロード対応
     parser_classes = (MultiPartParser, FormParser)
 
-    def upload_file(request):
-        if request.method == 'POST' and request.FILES['file']:
-            form = DocumentForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()  # モデルに保存され、S3にアップロードされる
-                return render(request, 'upload_success.html')
-        else:
-            form = DocumentForm()
-        return render(request, 'upload.html', {'form': form})
     def update(self, request, *args, **kwargs):
         player = self.get_object()
         # プレイヤー情報の更新
