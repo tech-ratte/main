@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import environ
-from storages.backends.s3boto3 import S3ManifestStaticStorage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -170,9 +169,9 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 # STATIC_URL = '/static/'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # mediaファイル保存先
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # # staticファイルの参照先
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
