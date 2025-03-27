@@ -11,9 +11,8 @@ from rest_framework.response import Response
 # from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django_filters.rest_framework import DjangoFilterBackend
-from django.shortcuts import render
-from .forms import DocumentForm
-from .models import Document
+import boto3
+
 
 class PlayerViewSet(viewsets.ModelViewSet):
     queryset = Player.objects.all()
@@ -37,12 +36,16 @@ class PlayerViewSet(viewsets.ModelViewSet):
             new_icon = request.FILES['icon']
             # 既存のアイコンがある場合は削除
             if player.icon:
-                form = DocumentForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                # icon_path = os.path.join(settings.MEDIA_URL, str(player.icon))
-                # if os.path.exists(icon_path):
-                #     os.remove(icon_path)
+                # S3クライアント
+                s3_client = boto3.client('s3', region_name=settings.AWS_S3_REGION_NAME)
+                # S3のファイルパス（キー）
+                icon_key = str(player.icon)
+                try:
+                    # アイコンをS3から削除
+                    s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=icon_key)
+                except Exception as e:
+                    # エラーハンドリング
+                    print(f"Error deleting icon from S3: {e}")
             # 新しいアイコンを設定
             player.icon = new_icon
         # プレイヤー情報の他のフィールドを更新
