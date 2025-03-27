@@ -164,7 +164,7 @@ AWS_HEADERS = {
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 # メディアファイルの保存場所
 # MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
 
 # Static files (CSS, JavaScript, Images)
