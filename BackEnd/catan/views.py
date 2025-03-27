@@ -39,23 +39,26 @@ class PlayerViewSet(viewsets.ModelViewSet):
         else:
             form = DocumentForm()
         return render(request, 'upload.html', {'form': form})
-    # def update(self, request, *args, **kwargs):
-    #     player = self.get_object()
-    #     # プレイヤー情報の更新
-    #     if 'icon' in request.FILES:
-    #         new_icon = request.FILES['icon']
-    #         # 既存のアイコンがある場合は削除
-    #         if player.icon:
-    #             icon_path = os.path.join(settings.MEDIA_ROOT, str(player.icon))
-    #             if os.path.exists(icon_path):
-    #                 os.remove(icon_path)
-    #         # 新しいアイコンを設定
-    #         player.icon = new_icon
-    #     # プレイヤー情報の他のフィールドを更新
-    #     serializer = self.get_serializer(player, data=request.data, partial=True)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_update(serializer)
-    #     return Response(serializer.data)
+    def update(self, request, *args, **kwargs):
+        player = self.get_object()
+        # プレイヤー情報の更新
+        if 'icon' in request.FILES:
+            new_icon = request.FILES['icon']
+            # 既存のアイコンがある場合は削除
+            if player.icon:
+                form = DocumentForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                # icon_path = os.path.join(settings.MEDIA_URL, str(player.icon))
+                # if os.path.exists(icon_path):
+                #     os.remove(icon_path)
+            # 新しいアイコンを設定
+            player.icon = new_icon
+        # プレイヤー情報の他のフィールドを更新
+        serializer = self.get_serializer(player, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
 class GameResultViewSet(viewsets.ModelViewSet):
     queryset = GameResult.objects.all()
