@@ -43,7 +43,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             # 既存のアイコンがある場合は削除
             if player.icon:
                 # S3のファイルパス（キー）
-                icon_key = str(player.icon)
+                icon_key = f"media/{player.icon}"
                 try:
                     # アイコンをS3から削除
                     self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=icon_key)
