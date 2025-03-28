@@ -38,6 +38,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         player = self.get_object()
+        log_messages = []
         # プレイヤー情報の更新
         if 'icon' in request.FILES:
             new_icon = request.FILES['icon']
@@ -48,11 +49,11 @@ class PlayerViewSet(viewsets.ModelViewSet):
                 try:
                     # アイコンをS3から削除
                     self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=icon_key)
-                    self.logger.info(f"Deleted icon from S3: {icon_key}")
+                    log_messages.append(self.logger.info(f"Deleted icon from S3: {icon_key}"))
                 except Exception as e:
                     # エラーハンドリング
                     print(f"Error deleting icon from S3: {e}")
-                    self.logger.error(f"Error deleting icon from S3: {e}")
+                    log_messages.append(self.logger.error(f"Error deleting icon from S3: {e}"))
                     return Response({"error": "Failed to delete previous icon from S3"}, status=500)
             # 新しいアイコンを設定
             player.icon = new_icon
@@ -60,7 +61,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(player, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-        return Response(serializer.data)
+        return Response({"data":serializer.data, "logs":log_messages})
 
 class GameResultViewSet(viewsets.ModelViewSet):
     queryset = GameResult.objects.all()
