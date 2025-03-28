@@ -43,15 +43,16 @@ class PlayerViewSet(viewsets.ModelViewSet):
             # 既存のアイコンがある場合は削除
             if player.icon:
                 # S3のファイルパス（キー）
-                icon_key = f"media/{player.icon}"
-                try:
-                    # アイコンをS3から削除
-                    self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=icon_key)
-                    log_messages.append(f"Deleted icon from S3: {icon_key}")
-                except Exception as e:
-                    # エラーハンドリング
-                    log_messages.append(f"Error deleting icon from S3: {e}")
-                    return Response({"error": "Failed to delete previous icon from S3"}, status=500)
+                delete_key = f"media/{player.icon}"
+                if not "default" in delete_key:
+                    try:
+                        # アイコンをS3から削除
+                        self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=delete_key)
+                        log_messages.append(f"Deleted icon from S3: {delete_key}")
+                    except Exception as e:
+                        # エラーハンドリング
+                        log_messages.append(f"Error deleting icon from S3: {e}")
+                        return Response({"error": "Failed to delete previous icon from S3"}, status=500)
             # 新しいアイコンを設定
             player.icon = new_icon
         # プレイヤー情報の他のフィールドを更新

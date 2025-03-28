@@ -1,32 +1,30 @@
 import { Component, Inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-  MAT_NATIVE_DATE_FORMATS,
-  NativeDateAdapter,
-  provideNativeDateAdapter,
-} from '@angular/material/core';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { Role, Roles } from '../player.model';
 import { coreImports } from '../../../../core/core.imports';
 import { SheardFieldComponent } from '../../../../core/sheard-field/shared-field.component';
 import { Option } from '../../../../core/core.model';
 import { TimeFormatService } from '../../../../core/time-format/time-format.service';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY年MM月',
+  },
+  display: {
+    dateInput: 'YYYY年MM月',
+    monthYearLabel: 'YYYY MMM',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY MMMM',
+  },
+};
+
 @Component({
   selector: 'app-register-player-dialog',
   imports: [...coreImports, SheardFieldComponent],
   templateUrl: './register-player-dialog.component.html',
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: NativeDateAdapter,
-      deps: [MAT_DATE_LOCALE],
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS },
-  ],
+  providers: [provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: MY_FORMATS }],
   styleUrl: './register-player-dialog.component.scss',
 })
 export class RegisterPlayerDialogComponent {
