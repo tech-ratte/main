@@ -39,6 +39,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
         # プレイヤー情報の更新
         if 'icon' in request.FILES:
             new_icon = request.FILES['icon']
+            log_messages.append(f"New icon from S3: {new_icon}")
             # 既存のアイコンがある場合は削除
             if player.icon:
                 # S3のファイルパス（キー）
