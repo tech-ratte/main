@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from django.conf import settings
 from django_filters.rest_framework import DjangoFilterBackend
 import boto3
+import logging
 
 
 class PlayerViewSet(viewsets.ModelViewSet):
@@ -29,6 +30,12 @@ class PlayerViewSet(viewsets.ModelViewSet):
     # ファイルアップロード対応
     parser_classes = (MultiPartParser, FormParser)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # boto3クライアントを初期化
+        self.s3_client = boto3.client('s3', region_name=settings.AWS_S3_REGION_NAME)
+        self.logger = logging.getLogger(__name__)
+
     def update(self, request, *args, **kwargs):
         player = self.get_object()
         # プレイヤー情報の更新
@@ -36,16 +43,17 @@ class PlayerViewSet(viewsets.ModelViewSet):
             new_icon = request.FILES['icon']
             # 既存のアイコンがある場合は削除
             if player.icon:
-                # S3クライアント
-                s3_client = boto3.client('s3', region_name=settings.AWS_S3_REGION_NAME)
                 # S3のファイルパス（キー）
                 icon_key = str(player.icon)
                 try:
                     # アイコンをS3から削除
-                    s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=icon_key)
+                    self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=icon_key)
+                    self.logger.info(f"Deleted icon from S3: {icon_key}")
                 except Exception as e:
                     # エラーハンドリング
                     print(f"Error deleting icon from S3: {e}")
+                    self.logger.error(f"Error deleting icon from S3: {e}")
+                    return Response({"error": "Failed to delete previous icon from S3"}, status=500)
             # 新しいアイコンを設定
             player.icon = new_icon
         # プレイヤー情報の他のフィールドを更新
