@@ -39,10 +39,18 @@ class PlayerViewSet(viewsets.ModelViewSet):
         # プレイヤー情報の更新
         if 'icon' in request.FILES:
             new_icon = request.FILES['icon']
+            log_messages.append(f"Uploaded file type: {new_icon.content_type}")
             # 既存のアイコンがある場合は削除
             if player.icon:
                 # S3のファイルパス（キー）
                 delete_key = f"media/{player.icon}"
+                try:
+                    from PIL import Image
+                    image = Image.open(new_icon)
+                    image.verify()  # 画像が破損していないか検証
+                except Exception as e:
+                    log_messages.append(f"Image verification failed: {e}")
+                    return Response({"error": "Invalid image file", "logs": log_messages}, status=400)
                 if not "default" in delete_key:
                     try:
                         # アイコンをS3から削除
