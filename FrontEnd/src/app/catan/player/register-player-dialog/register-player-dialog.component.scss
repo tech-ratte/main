@@ -31,8 +31,3 @@ img {
 ::ng-deep .mat-calendar-body-cell-content {
   display: none;
 }
-
-/* 日付部分のみに対するカスタムスタイルが適用されるようにします */
-::ng-deep .mat-calendar-body .mat-calendar-body-cell-content {
-  font-size: 0; /* 文字を非表示に */
-}
