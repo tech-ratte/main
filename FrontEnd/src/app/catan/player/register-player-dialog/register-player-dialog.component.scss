@@ -27,7 +27,3 @@ img {
     }
   }
 }
-/* 日付ピッカーの日部分を非表示にする */
-::ng-deep .mat-calendar-body-cell-content {
-  display: none;
-}
