@@ -80,7 +80,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   Register(data: any): void {
     this.playerService.create(data).subscribe((response) => {
       console.log('Player created successfully:', response);
-      // location.reload();
+      location.reload();
     });
   }
 
@@ -88,7 +88,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   Edit(data: any): void {
     this.playerService.update(data).subscribe((response) => {
       console.log('Player updated successfully:', response);
-      // location.reload();
+      location.reload();
     });
   }
 

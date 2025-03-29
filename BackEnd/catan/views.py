@@ -35,32 +35,22 @@ class PlayerViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         player = self.get_object()
-        log_messages = []
         # プレイヤー情報の更新
         if 'icon' in request.FILES:
             new_icon = request.FILES['icon']
-            log_messages.append(f"Uploaded file type: {new_icon.content_type}")
             # 既存のアイコンがある場合は削除
             if player.icon:
                 # S3のファイルパス（キー）
                 delete_key = f"{player.icon}"
                 if not "default" in delete_key:
-                    try:
-                        # アイコンをS3から削除
-                        self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=delete_key)
-                        log_messages.append(f"Deleted icon from S3: {delete_key}")
-                    except Exception as e:
-                        # エラーハンドリング
-                        log_messages.append(f"Error deleting icon from S3: {e}")
-                        return Response({"error": "Failed to delete previous icon from S3"}, status=500)
+                    self.s3_client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=delete_key)
             # 新しいアイコンを設定
             player.icon = new_icon
-            log_messages.append(f"New icon from S3: {player.icon}")
         # プレイヤー情報の他のフィールドを更新
         serializer = self.get_serializer(player, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-        return Response({"data":serializer.data, "logs":log_messages})
+        return Response(serializer.data)
 
 class GameResultViewSet(viewsets.ModelViewSet):
     queryset = GameResult.objects.all()
