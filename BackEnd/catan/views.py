@@ -43,7 +43,7 @@ class PlayerViewSet(viewsets.ModelViewSet):
             # 既存のアイコンがある場合は削除
             if player.icon:
                 # S3のファイルパス（キー）
-                delete_key = f"media/{player.icon}"
+                delete_key = f"{player.icon}"
                 if not "default" in delete_key:
                     try:
                         # アイコンをS3から削除
