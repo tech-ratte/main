@@ -158,15 +158,11 @@ AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME')
 #     'Access-Control-Allow-Origin': '*',
 # }
 
-# メディアファイル（画像など）のURL設定
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-# メディアファイルの保存場所
-# MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+# MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
 # STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 # STATIC_ROOT = os.path.join(STATIC_URL, 'staticfiles')
 STATIC_URL = '/static/'
