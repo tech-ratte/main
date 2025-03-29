@@ -44,13 +44,6 @@ class PlayerViewSet(viewsets.ModelViewSet):
             if player.icon:
                 # S3のファイルパス（キー）
                 delete_key = f"media/{player.icon}"
-                try:
-                    from PIL import Image
-                    image = Image.open(new_icon)
-                    image.verify()  # 画像が破損していないか検証
-                except Exception as e:
-                    log_messages.append(f"Image verification failed: {e}")
-                    return Response({"error": "Invalid image file", "logs": log_messages}, status=400)
                 if not "default" in delete_key:
                     try:
                         # アイコンをS3から削除
@@ -62,7 +55,6 @@ class PlayerViewSet(viewsets.ModelViewSet):
                         return Response({"error": "Failed to delete previous icon from S3"}, status=500)
             # 新しいアイコンを設定
             player.icon = new_icon
-            player.save()
             log_messages.append(f"New icon from S3: {player.icon}")
         # プレイヤー情報の他のフィールドを更新
         serializer = self.get_serializer(player, data=request.data, partial=True)

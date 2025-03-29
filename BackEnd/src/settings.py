@@ -163,15 +163,11 @@ MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 # MEDIA_URL = '/media/'  # ユーザーがブラウザからアクセスする際のURLパス
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 実際のファイルが保存される場所
 
-# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-# STATIC_ROOT = os.path.join(STATIC_URL, 'staticfiles')
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+STATIC_ROOT = os.path.join(STATIC_URL, 'staticfiles')
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# # mediaファイル保存先
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# # # staticファイルの参照先
-# # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
@@ -180,3 +176,7 @@ STORAGES = {
         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
 }
+# # mediaファイル保存先
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# # # staticファイルの参照先
+# # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
