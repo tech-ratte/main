@@ -54,7 +54,7 @@ export class GameComponent implements OnInit {
       game: [],
       order: [, [Validators.required]],
       color: [, [Validators.required]],
-      // land: [2],
+      land: [2],
     });
   }
 
