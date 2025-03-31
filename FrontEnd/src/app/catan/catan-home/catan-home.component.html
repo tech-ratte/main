@@ -1,8 +1,24 @@
 <div class="container">
   <img src="images/home.png" />
-  <button mat-button (click)="fileInput.click()">ファイルを選択</button>
-  <input type="file" #fileInput style="display: none" (change)="readExcel($event)" />
-  {{ progress }}
-  {{ sheetNames }}
-  {{ data }}
+  <div class="excel">
+    <button mat-flat-button (click)="fileInput.click()">ファイルを選択</button>
+    <input type="file" #fileInput style="display: none" (change)="readExcel($event)" />
+    <h2 class="progress">{{ progress }}</h2>
+    <h3 class="sheet-name">{{ sheetName }}シート</h3>
+    <h4>{{ data }}</h4>
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let title of columnsTitle">
+            {{ title }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data">
+          <td *ngFor="let cell of row">{{ cell }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
