@@ -386,7 +386,11 @@ export class GameComponent implements OnInit {
 
           const cellValue = worksheet[cellAddress]?.v ?? null;
           if (col == 'A') {
-            rowData.push(new Date(baseDate.getTime() + cellValue * 24 * 60 * 60 * 1000));
+            rowData.push(
+              this.timeFormatService.convertDateToDateTimeField(
+                new Date(baseDate.getTime() + cellValue * 24 * 60 * 60 * 1000),
+              ),
+            );
           } else {
             rowData.push(cellValue);
           }
@@ -396,5 +400,19 @@ export class GameComponent implements OnInit {
       this.progress = '読み取り完了';
     };
     reader.readAsBinaryString(target.files[0]);
+
+    this.gameResultForm.controls['date'].patchValue(this.data[0][0]);
+    this.gameResultForm.controls['title'].patchValue(this.data[0][1]);
+    if (this.data[3][41] == 0) {
+      this.removePersonalResult(0);
+    }
+    if (this.data[3][53] != 0) {
+      this.addPersonalResult();
+    }
+    if (this.data[3][65] != 0) {
+      this.addPersonalResult();
+    }
+
+    // this.personalResult(i).patchValue({ game: response.id });
   }
 }
