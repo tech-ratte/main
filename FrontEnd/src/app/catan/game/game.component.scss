@@ -41,3 +41,39 @@
     color: var(--error-50);
   }
 }
+
+.excel {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  button {
+    width: 100px;
+  }
+
+  .table-container {
+    max-width: 1500px;
+    max-height: 500px; /* 最大の高さを指定 */
+    overflow-x: auto; /* 縦スクロールを有効化 */
+    overflow-y: auto; /* 縦スクロールを有効化 */
+    border: 1px solid #ddd;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background: white; /* ヘッダーを固定 */
+      z-index: 1;
+    }
+  }
+}
