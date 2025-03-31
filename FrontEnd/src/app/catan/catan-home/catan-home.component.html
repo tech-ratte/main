@@ -5,19 +5,8 @@
     <input type="file" #fileInput style="display: none" (change)="readExcel($event)" />
     <h2 class="progress">{{ progress }}</h2>
     <h3 class="sheet-name">{{ sheetName }}シート</h3>
-    <table>
-      <thead>
-        <tr>
-          <th *ngFor="let title of columnsTitle">
-            {{ title }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of data">
-          <td *ngFor="let cell of row">{{ cell }}</td>
-        </tr>
-      </tbody>
-    </table>
+    {{ data | json }}
+    <p *ngFor="let title of columnsTitle">{{ title }}</p>
+    <p *ngFor="let row of data">{{ row }}</p>
   </div>
 </div>
