@@ -359,7 +359,7 @@ export class GameComponent implements OnInit {
         'GW',
       ];
       const startRow = 2;
-      const endRow = 152;
+      const endRow = 154;
       const interval = 2;
       const baseDate = new Date(1899, 11, 30); // Excelの基準日（1900年1月1日 - 1日）
       for (let row = startRow; row < endRow; row += interval) {
@@ -386,11 +386,9 @@ export class GameComponent implements OnInit {
 
           const cellValue = worksheet[cellAddress]?.v ?? null;
           if (col == 'A') {
-            rowData.push(
-              this.timeFormatService.convertDateToDateTimeField(
-                new Date(baseDate.getTime() + cellValue * 24 * 60 * 60 * 1000),
-              ),
-            );
+            const jsDate = new Date(baseDate.getTime() + cellValue * 86400000);
+            jsDate.setHours(jsDate.getHours() + 9);
+            rowData.push(this.timeFormatService.convertDateToDateTimeField(jsDate));
           } else {
             rowData.push(cellValue);
           }
@@ -398,21 +396,22 @@ export class GameComponent implements OnInit {
         this.data.push(rowData);
       }
       this.progress = '読み取り完了';
+
+      this.gameResultForm.controls['date'].patchValue(this.data[0][0]);
+      this.gameResultForm.controls['title'].patchValue(this.data[0][1]);
+      if (this.data[3][41] == 0) {
+        this.removePersonalResult(0);
+      }
+      if (this.data[3][53] != 0) {
+        this.addPersonalResult();
+      }
+      if (this.data[3][65] != 0) {
+        this.addPersonalResult();
+      }
+
+      this.progress = 'データセット完了';
+      // this.personalResult(i).patchValue({ game: response.id });
     };
     reader.readAsBinaryString(target.files[0]);
-
-    this.gameResultForm.controls['date'].patchValue(this.data[0][0]);
-    this.gameResultForm.controls['title'].patchValue(this.data[0][1]);
-    if (this.data[3][41] == 0) {
-      this.removePersonalResult(0);
-    }
-    if (this.data[3][53] != 0) {
-      this.addPersonalResult();
-    }
-    if (this.data[3][65] != 0) {
-      this.addPersonalResult();
-    }
-
-    // this.personalResult(i).patchValue({ game: response.id });
   }
 }
