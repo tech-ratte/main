@@ -35,5 +35,6 @@ export class CatanHomeComponent {
       this.data = cellValue;
       this.progress = '読み取り完了';
     };
+    reader.readAsBinaryString(target.files[0]);
   }
 }
