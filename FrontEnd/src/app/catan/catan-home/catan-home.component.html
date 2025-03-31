@@ -6,7 +6,5 @@
     <h2 class="progress">{{ progress }}</h2>
     <h3 class="sheet-name">{{ sheetName }}シート</h3>
     {{ data | json }}
-    <p *ngFor="let title of columnsTitle">{{ title }}</p>
-    <p *ngFor="let row of data">{{ row }}</p>
   </div>
 </div>
