@@ -1,3 +1,5 @@
 <div class="container">
   <img src="images/home.png" />
+  <button mat-button (click)="fileInput.click()">ファイルを選択</button>
+  <input type="file" #fileInput style="display: none" (change)="readExcel($event)" />
 </div>
