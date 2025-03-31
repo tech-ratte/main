@@ -83,6 +83,7 @@ export class GameComponent implements OnInit {
   Register(): void {
     // GameResultを登録
     this.gameResultService.create(this.gameResultForm.value).subscribe(() => {
+      // 最新のGameResult(登録したGameResult)を取得
       this.gameResultService.getLatestGame().subscribe((response) => {
         const createRequests = this.personalResults.controls.map((control, i) => {
           // 登録したGameResultのIDを追加
@@ -360,6 +361,7 @@ export class GameComponent implements OnInit {
       const startRow = 2;
       const endRow = 152;
       const interval = 2;
+      const baseDate = new Date(1899, 11, 30); // Excelの基準日（1900年1月1日 - 1日）
       for (let row = startRow; row < endRow; row += interval) {
         var rowData = [];
         for (const col of columns) {
@@ -381,8 +383,13 @@ export class GameComponent implements OnInit {
           } else {
             var cellAddress = `${col}${row + 1}`;
           }
+
           const cellValue = worksheet[cellAddress]?.v ?? null;
-          rowData.push(cellValue);
+          if (col == 'A') {
+            rowData.push(new Date(baseDate.getTime() + cellValue * 24 * 60 * 60 * 1000));
+          } else {
+            rowData.push(cellValue);
+          }
         }
         this.data.push(rowData);
       }
