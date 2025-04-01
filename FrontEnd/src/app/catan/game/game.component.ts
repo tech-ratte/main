@@ -8,7 +8,7 @@ import { SheardFieldComponent } from '../../../core/sheard-field/shared-field.co
 import { PersonalResultService } from './personal-result.service';
 import { PlayerService } from '../player/player.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, identity, of } from 'rxjs';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
 import * as XLSX from 'xlsx';
 import { keyframes } from '@angular/animations';
@@ -399,8 +399,8 @@ export class GameComponent implements OnInit {
       this.progress = '読み取り完了';
 
       this.gameResultForm.controls['date'].patchValue(this.data[0][0]);
-      Titles.forEach((key, value) => {
-        this.gameResultForm.controls['title'].patchValue(this.data[0][1] == value && key);
+      Titles.forEach((key, viewValue) => {
+        this.gameResultForm.controls['title'].patchValue(this.data[0][1] == viewValue && key);
       });
       if (this.data[3][41] == 0) {
         this.removePersonalResult(0);
@@ -413,7 +413,9 @@ export class GameComponent implements OnInit {
       }
 
       for (let i = 0; i < this.personalResults.length; i++) {
-        this.personalResult(i).patchValue({ player: this.data[3][5 + 12 * i] });
+        this.players.forEach((id, name) => {
+          this.personalResult(i).patchValue({ player: this.data[3][5 + 12 * i] == name && id });
+        });
         this.personalResult(i).patchValue({ color: Colors[i].key });
       }
 
