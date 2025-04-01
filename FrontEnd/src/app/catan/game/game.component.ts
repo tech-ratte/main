@@ -416,8 +416,11 @@ export class GameComponent implements OnInit {
 
       for (let i = 0; i < this.personalResults.length; i++) {
         this.players.forEach((player) => {
+          console.log(player.key, player.viewValue);
+          console.log(this.data[3][5 + 12 * i].toString());
+          console.log(String(this.data[3][5 + 12 * i]) == player.viewValue);
           this.personalResult(i).patchValue({
-            player: this.data[3][5 + 12 * i] == player.viewValue && player.key,
+            player: this.data[3][5 + 12 * i].toString() == player.viewValue && player.key,
           });
         });
         this.personalResult(i).patchValue({ color: Colors[i].key });
