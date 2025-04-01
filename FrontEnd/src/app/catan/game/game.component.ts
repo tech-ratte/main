@@ -399,12 +399,9 @@ export class GameComponent implements OnInit {
       this.progress = '読み取り完了';
 
       this.gameResultForm.controls['date'].patchValue(this.data[0][0]);
-      Titles.forEach((key, viewValue) => {
-        console.log(key, viewValue);
-        console.log(this.data[0][1].toString());
-        console.log(this.data[0][1] == viewValue);
+      Titles.forEach((title) => {
         this.gameResultForm.controls['title'].patchValue(
-          this.data[0][1].toString() == viewValue && key,
+          this.data[0][1] == title.viewValue && title.key,
         );
       });
       if (this.data[3][41] == 0) {
@@ -418,12 +415,9 @@ export class GameComponent implements OnInit {
       }
 
       for (let i = 0; i < this.personalResults.length; i++) {
-        this.players.forEach((id, name) => {
-          console.log(id, name);
-          console.log(this.data[3][5 + 12 * i].toString());
-          console.log(this.data[3][5 + 12 * i] == name);
+        this.players.forEach((player) => {
           this.personalResult(i).patchValue({
-            player: this.data[3][5 + 12 * i].toString() == name && id,
+            player: this.data[3][5 + 12 * i] == player.viewValue && player.key,
           });
         });
         this.personalResult(i).patchValue({ color: Colors[i].key });
