@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
 import * as XLSX from 'xlsx';
+import { keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-game',
@@ -398,7 +399,9 @@ export class GameComponent implements OnInit {
       this.progress = '読み取り完了';
 
       this.gameResultForm.controls['date'].patchValue(this.data[0][0]);
-      this.gameResultForm.controls['title'].patchValue(this.data[0][1]);
+      Titles.forEach((key, value) => {
+        this.gameResultForm.controls['title'].patchValue(this.data[0][1] == value && key);
+      });
       if (this.data[3][41] == 0) {
         this.removePersonalResult(0);
       }
@@ -407,6 +410,11 @@ export class GameComponent implements OnInit {
       }
       if (this.data[3][65] != 0) {
         this.addPersonalResult();
+      }
+
+      for (let i = 0; i < this.personalResults.length; i++) {
+        this.personalResult(i).patchValue({ player: this.data[3][5 + 12 * i] });
+        this.personalResult(i).patchValue({ color: Colors[i].key });
       }
 
       this.progress = 'データセット完了';
