@@ -67,12 +67,25 @@ class GameResultViewSet(viewsets.ModelViewSet):
     # 最新の1件のみ取得（detail：False → GetAll, True → idのGet）
     @action(detail=False, methods=['get'], url_path='latest')
     def latest(self, request):
-        """最新の 1 件を取得するエンドポイント"""
         latest_result = GameResult.objects.order_by('-created_at').first()
         if latest_result:
             serializer = self.get_serializer(latest_result)
             return Response(serializer.data)
         return Response({}, status=200)  # データがない場合は空のレスポンス
+    
+    # Player情報を追加
+    @action(detail=False, methods=['get'], url_path='with-player')
+    def withPlayer(self, request):
+        game_results = GameResult.objects.all()
+        game_data = []
+        for game in game_results:
+            players = Player.objects.filter(personalresult__game=game)
+            player_list = [{ "name": player.name,"icon":player.icon} for player in players]                
+            game_serializer = GameResultSerializer(game)
+            game_dict = game_serializer.data
+            game_dict["players"] = player_list            
+            game_data.append(game_dict)
+        return Response(game_data)
     
 class PersonalResultViewSet(viewsets.ModelViewSet):
     queryset = PersonalResult.objects.all()
