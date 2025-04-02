@@ -22,15 +22,15 @@ export class GameResultService extends GenericApiService {
     );
   }
 
-  // Player情報を追加
-  public getGameWithPlayer(): Observable<any> {
-    return this.http.get(super._url + 'with-player/').pipe(
-      catchError((error) => {
-        console.error('GetApiError', error);
-        return throwError(() => new Error('データの取得に失敗しました'));
-      }),
-    );
-  }
+  // // Player情報を追加
+  // public getGameWithPlayer(): Observable<any> {
+  //   return this.http.get(super._url + 'with-player/').pipe(
+  //     catchError((error) => {
+  //       console.error('GetApiError', error);
+  //       return throwError(() => new Error('データの取得に失敗しました'));
+  //     }),
+  //   );
+  // }
 
   constructor(http: HttpClient) {
     super(http);

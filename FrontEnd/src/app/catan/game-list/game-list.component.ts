@@ -94,7 +94,7 @@ export class GameListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // this.playerService.addQuery(this.notGraduated);
 
-    this.gameResultService.getGameWithPlayer().subscribe(
+    this.gameResultService.getAll().subscribe(
       (response) => {
         this.gameResults = response;
         this.dataSource.data = this.gameResults;
