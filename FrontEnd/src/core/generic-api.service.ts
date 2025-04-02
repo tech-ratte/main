@@ -27,9 +27,9 @@ export class GenericApiService {
   queryList$ = this.queryListSubject.asObservable();
 
   // Getリクエスト（すべて）
-  public getAll(queryParameters: string[] = []): Observable<any> {
+  public getAll(): Observable<any> {
     let query = '';
-    for (let [index, queryParameter] of queryParameters.entries()) {
+    for (let [index, queryParameter] of this.queryListSubject.getValue().entries()) {
       index == 0 ? (query = queryParameter) : query + '&' + queryParameter;
     }
 

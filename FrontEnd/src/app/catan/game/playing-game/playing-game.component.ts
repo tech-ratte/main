@@ -344,8 +344,8 @@ export class PlayingGameComponent {
         };
 
         // gameResultと関連するpersonalResultの取得
-        this.personalResultService.queryList$.subscribe((queryList) => {
-          this.personalResultService.getAll(queryList).subscribe((response) => {
+        this.personalResultService.queryList$.subscribe(() => {
+          this.personalResultService.getAll().subscribe((response) => {
             this.personalResults = response;
             // 順番
             this.order = ((this.gameResult.turn! - 1) % this.personalResults.length) + 1;

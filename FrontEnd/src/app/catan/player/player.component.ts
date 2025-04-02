@@ -116,8 +116,8 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.playerService.addQuery(this.notGraduated);
 
     // クエリ数の変動を検知してGet呼び出し
-    this.playerService.queryList$.subscribe((queryList) => {
-      this.playerService.getAll(queryList).subscribe(
+    this.playerService.queryList$.subscribe(() => {
+      this.playerService.getAll().subscribe(
         (response) => {
           this.players = response;
           this.dataSource.data = this.players;
