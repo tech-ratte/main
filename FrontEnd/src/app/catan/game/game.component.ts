@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { coreImports } from '../../../core/core.imports';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Colors, Titles } from './game.model';
@@ -8,7 +8,7 @@ import { SheardFieldComponent } from '../../../core/sheard-field/shared-field.co
 import { PersonalResultService } from './personal-result.service';
 import { PlayerService } from '../player/player.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, identity, lastValueFrom, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
 import * as XLSX from 'xlsx';
 @Component({

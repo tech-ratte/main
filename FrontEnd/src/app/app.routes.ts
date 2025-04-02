@@ -5,6 +5,7 @@ import { PlayerComponent } from './catan/player/player.component';
 import { GameComponent } from './catan/game/game.component';
 import { CatanHomeComponent } from './catan/catan-home/catan-home.component';
 import { PlayingGameComponent } from './catan/game/playing-game/playing-game.component';
+import { GameListComponent } from './catan/game-list/game-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'home' },
@@ -13,14 +14,15 @@ export const routes: Routes = [
     component: CatanComponent,
     children: [
       { path: '', component: CatanHomeComponent, title: 'Catan' },
-      { path: 'player', component: PlayerComponent, title: 'Player' },
+      { path: 'player', component: PlayerComponent, title: 'Catan | Player' },
       {
         path: 'game',
         children: [
-          { path: '', component: GameComponent, title: 'Game' },
-          { path: 'playing-game', component: PlayingGameComponent, title: 'Playing Game' },
+          { path: '', component: GameComponent, title: 'Catan | Game' },
+          { path: 'playing-game', component: PlayingGameComponent, title: 'Catan | Playing Game' },
         ],
       },
+      { path: 'game-list', component: GameListComponent, title: 'Catan | List' },
     ],
   },
 ];
