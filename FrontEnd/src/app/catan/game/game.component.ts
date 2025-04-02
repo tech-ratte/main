@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
 import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-game',
   imports: [...coreImports, SheardFieldComponent],
@@ -150,69 +151,49 @@ export class GameComponent implements OnInit {
       }));
     });
   }
+
+  // progress: string = '';
+  // sheetName: string = '';
+  // data: any[] = [];
+  // readExcel(event: any) {
+  //   this.progress = 'ファイル選択完了';
+  //   const target: DataTransfer = <DataTransfer>event.target;
+  //   if (target.files.length !== 1) return;
+
+  //   this.progress = '読み取り開始';
+  //   const reader: FileReader = new FileReader();
+  //   reader.onload = async (e: any) => {
+  //     const binaryString: string = e.target.result;
+  //     const workbook: XLSX.WorkBook = XLSX.read(binaryString, { type: 'binary' });
+
+  //     this.progress = 'ワークブック読み込み';
+  //     this.sheetName = workbook.SheetNames[3];
+
+  //     const worksheet: XLSX.WorkSheet = workbook.Sheets[this.sheetName];
+
+  //     // **セルの値を取得**
+  //     const columns = [
+  //       'A',
+  //       'B',
+  //       'C',
+  //       'E',
+  //       'F',
+  //     ];
+  //     const startRow = 2;
+  //     const endRow = 154;
+  //     const interval = 2;
+  //     for (let row = startRow; row < endRow; row += interval) {
+  //       var rowData = [];
+  //       for (const col of columns) {
+  //           var cellAddress = `${col}${row}`;
+
+  //         const cellValue = worksheet[cellAddress]?.v ?? null;
+  //           rowData.push(cellValue);
+  //       }
+  //       this.data.push(rowData);
+  //     }
+  //   };
+
+  //   reader.readAsBinaryString(target.files[0]);
+  // }
 }
-//   progress: string = '';
-//   sheetName: string = '';
-//   data: any[] = [];
-
-//   readExcel(event: any) {
-//     this.progress = 'ファイル選択完了';
-//     const target: DataTransfer = <DataTransfer>event.target;
-//     if (target.files.length !== 1) return;
-
-//     this.progress = '読み取り開始';
-//     const reader: FileReader = new FileReader();
-//     reader.onload = async (e: any) => {
-//       const binaryString: string = e.target.result;
-//       const workbook: XLSX.WorkBook = XLSX.read(binaryString, { type: 'binary' });
-
-//       this.progress = 'ワークブック読み込み';
-//       this.sheetName = workbook.SheetNames[3];
-
-//       const worksheet: XLSX.WorkSheet = workbook.Sheets[this.sheetName];
-
-//       // **セルの値を取得**
-//       const columns = [
-//         'A',
-//         'B',
-//         'C',
-//         'E',
-//         'F',
-//       ];
-//       const startRow = 2;
-//       const endRow = 154;
-//       const interval = 2;
-//       const baseDate = new Date(1899, 11, 30); // Excelの基準日（1900年1月1日 - 1日）
-//       for (let row = startRow; row < endRow; row += interval) {
-//         var rowData = [];
-//         for (const col of columns) {
-//           if (
-//             col == 'A' ||
-//             col == 'B' ||
-//             col == 'C' ||
-//             col == 'E' ||
-//             col == 'F'
-//           ) {
-//             var cellAddress = `${col}${row}`;
-//           } else {
-//             var cellAddress = `${col}${row + 1}`;
-//           }
-
-//           const cellValue = worksheet[cellAddress]?.v ?? null;
-//           if (col == 'A') {
-//             const jsDate = new Date(baseDate.getTime() + cellValue * 86400000);
-//             jsDate.setHours(jsDate.getHours() + 9);
-//             rowData.push(this.timeFormatService.convertDateToDateField(jsDate));
-//           } else {
-//             rowData.push(cellValue);
-//           }
-//         }
-//         this.data.push(rowData);
-//       }
-//       this.progress = '読み取り完了';
-//       await this.postData();
-//     };
-
-//     reader.readAsBinaryString(target.files[0]);
-//   }
-// }
