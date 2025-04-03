@@ -7,8 +7,8 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 })
 export class GenericApiService {
   // 共通のApiUrl（urlを変更する場合はここ）
-  private baseUrl = 'http://127.0.0.1:8000/api/';
-  // private baseUrl = 'https://main-8r55.onrender.com/api/';
+  // private baseUrl = 'http://127.0.0.1:8000/api/';
+  private baseUrl = 'https://main-8r55.onrender.com/api/';
   private url: any;
   // 共通のApiUrlを渡すメソッド
   protected getBaseUrl(): string {
