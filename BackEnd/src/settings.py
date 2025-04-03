@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-0c_d8h&aj9vpzgr97vfyac3j^$h^=)@h_(=prgk0=v8659yf2o
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-# SITE_URL = 'http://127.0.0.1:8000'
-SITE_URL = 'https://main-8r55.onrender.com'
+SITE_URL = 'http://127.0.0.1:8000'
+# SITE_URL = 'https://main-8r55.onrender.com'
 
 ALLOWED_HOSTS = ['main-8r55.onrender.com', 'frontend-gn26.onrender.com', 'localhost', '127.0.0.1']
 
