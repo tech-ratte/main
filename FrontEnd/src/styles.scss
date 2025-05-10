@@ -94,6 +94,10 @@ mat-icon {
     display: flex;
     align-items: center;
 
+    mat-icon {
+      margin: 0px 5px 5px 0px;
+    }
+
     .toggle {
       margin-right: 30px;
     }
