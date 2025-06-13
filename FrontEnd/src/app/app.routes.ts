@@ -3,7 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { CatanComponent } from './catan/catan.component';
 import { PlayerComponent } from './catan/player/player.component';
 import { GameComponent } from './catan/game/game.component';
-import { CatanHomeComponent } from './catan/catan-home/catan-home.component';
+import { ResultComponent } from './catan/result/result.component';
 import { PlayingGameComponent } from './catan/game/playing-game/playing-game.component';
 import { GameListComponent } from './catan/game-list/game-list.component';
 
@@ -13,7 +13,7 @@ export const routes: Routes = [
     path: 'catan',
     component: CatanComponent,
     children: [
-      { path: '', component: CatanHomeComponent, title: 'Catan' },
+      { path: '', component: ResultComponent, title: 'Catan | Result' },
       { path: 'player', component: PlayerComponent, title: 'Catan | Player' },
       {
         path: 'game',

@@ -5,7 +5,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { GameResult, GameTitles } from '../game/game.model';
+import { CatanColors, GameResult, GameTitles } from '../game/game.model';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class GameListComponent implements OnInit, AfterViewInit {
   // クエリ
   // notGraduated: string = 'isGraduated=false';
   // テーブルカラム
-  displayedColumns: string[] = ['date', 'title', 'startTime', 'endTime', 'info'];
+  displayedColumns: string[] = ['date', 'title', 'startTime', 'endTime', 'players', 'info'];
   // 表示データ
   dataSource: MatTableDataSource<GameResult> = new MatTableDataSource();
   // テーブルソート用
@@ -67,6 +67,26 @@ export class GameListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // カタンカラー設定
+  setCatanColor(color: string): string {
+    switch (color) {
+      case 'red':
+        return CatanColors.RED;
+      case 'white':
+        return CatanColors.WHITE;
+      case 'blue':
+        return CatanColors.BLUE;
+      case 'yellow':
+        return CatanColors.YELLOW;
+      case 'green':
+        return CatanColors.GREEN;
+      case 'brown':
+        return CatanColors.BROWN;
+      default:
+        return '';
+    }
+  }
+
   openDetails(id?: string): void {
     // すべての登録が完了した後にナビゲート
     this.router.navigate(['../game/playing-game'], {
@@ -92,8 +112,6 @@ export class GameListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // this.playerService.addQuery(this.notGraduated);
-
     this.gameResultService.getGameInfo().subscribe(
       (response) => {
         this.gameResults = response;
