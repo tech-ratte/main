@@ -63,12 +63,14 @@ export const Titles: Option[] = [
   { key: 'catan', viewValue: 'カタン' },
   { key: 'space', viewValue: '宇宙カタン' },
   { key: 'sea', viewValue: '海カタン' },
+  { key: 'knight', viewValue: '騎士カタン' },
 ];
 
 export enum GameTitles {
   CATAN = 'カタン',
   SPACE = '宇宙カタン',
   SEA = '海カタン',
+  KNIGHT = '騎士カタン',
 }
 
 export const Colors: Option[] = [

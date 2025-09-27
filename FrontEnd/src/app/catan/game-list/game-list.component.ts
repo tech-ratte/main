@@ -30,22 +30,6 @@ export class GameListComponent implements OnInit, AfterViewInit {
   // ページネーション用
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  // 卒業生の表示可否
-  // private _isViewGraduated: boolean = false;
-  // get isViewGraduated(): boolean {
-  //   return this._isViewGraduated;
-  // }
-  // set isViewGraduated(value: boolean) {
-  //   this._isViewGraduated = value;
-  //   if (this._isViewGraduated) {
-  //     this.playerService.deleteQuery(this.notGraduated);
-  //     this.displayedColumns.splice(4, 0, 'isGraduated');
-  //   } else {
-  //     this.playerService.addQuery(this.notGraduated);
-  //     this.displayedColumns.splice(4, 1);
-  //   }
-  // }
-
   // Delete(id: string): void {
   //   this.playerService.delete(id).subscribe(
   //     (response) => {
@@ -54,6 +38,7 @@ export class GameListComponent implements OnInit, AfterViewInit {
   //   );
   //   location.reload();
   // }
+
   setGameTitle(title: string): string {
     switch (title) {
       case 'catan':
@@ -62,6 +47,8 @@ export class GameListComponent implements OnInit, AfterViewInit {
         return GameTitles.SPACE;
       case 'sea':
         return GameTitles.SEA;
+      case 'knight':
+        return GameTitles.KNIGHT;
       default:
         return '';
     }

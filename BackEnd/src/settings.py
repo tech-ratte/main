@@ -14,6 +14,11 @@ from pathlib import Path
 import os
 import environ
 
+# 環境変数を読み込むための設定
+env = environ.Env()
+# Render.comで設定した環境変数を読み込む
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,12 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0c_d8h&aj9vpzgr97vfyac3j^$h^=)@h_(=prgk0=v8659yf2o'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-SITE_URL = 'http://127.0.0.1:8000'
-# SITE_URL = 'https://main-8r55.onrender.com'
+DEBUG = True
+# SITE_URL = 'http://127.0.0.1:8000'
+SITE_URL = 'https://main-8r55.onrender.com'
 
 ALLOWED_HOSTS = ['main-8r55.onrender.com', 'frontend-gn26.onrender.com', 'localhost', '127.0.0.1']
 
@@ -87,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'neondb',  # データベース名
         'USER': 'neondb_owner',  # ユーザー名
-        'PASSWORD': 'npg_7nAItQKT5aFP',  # パスワード
+        'PASSWORD': env('NEON_PASSWORD'),  # パスワード
         'HOST': 'ep-delicate-darkness-a5wiogkb-pooler.us-east-2.aws.neon.tech',  # ホスト名（Neon のエンドポイント）
         'PORT': '5432',  # ポート番号
         'OPTIONS': {
@@ -136,11 +141,6 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
-
-# 環境変数を読み込むための設定
-env = environ.Env()
-# Render.comで設定した環境変数を読み込む
-environ.Env.read_env()
 
 # S3の設定を環境変数から取得
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')

@@ -10,7 +10,6 @@ import { PlayerService } from '../player/player.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
-import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-game',
