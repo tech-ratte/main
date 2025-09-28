@@ -42,9 +42,8 @@ class GameResultSerializer(serializers.ModelSerializer):
     def get_players(self, obj):
         return [
             {
-                'name': pr.player.name,
                 'icon': pr.player.icon.url,
                 'color': pr.color
             }
-            for pr in obj.personalresult_set.all()
+            for pr in obj.personalresult_set.all().order_by('order')
         ]

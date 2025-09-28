@@ -74,9 +74,10 @@ class PersonalResult(models.Model):
     merchant = models.BooleanField(default=False)
     saviourPoint = models.IntegerField(default=0)
 
-# class TotalPersonalResult(models.Model):
+# class PersonalSummary(models.Model):
 #     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 #     player = models.ForeignKey(Player, on_delete=models.PROTECT)
+#     game_title = models.CharField(max_length=8)
 #     win = models.IntegerField(default=0)
 #     order1 = models.IntegerField(default=0)
 #     order2 = models.IntegerField(default=0)

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeFormatService } from '../../../core/time-format/time-format.service';
-import { CatanColors, PersonalResult } from '../game/game.model';
-import { PlayerService } from '../player/player.service';
+import { CatanColors } from '../game/game.model';
 import { coreImports } from '../../../core/core.imports';
 import { PersonalResultService } from '../game/personal-result.service';
-import { Player } from '../player/player.model';
 
 @Component({
   selector: 'app-result',
@@ -13,8 +11,7 @@ import { Player } from '../player/player.model';
   styleUrl: './result.component.scss',
 })
 export class ResultComponent implements OnInit {
-  players: Player[] = [];
-  personalResults: PersonalResult[] = [];
+  aggregate: any[] = [];
 
   // カタンカラー設定
   setCatanColor(color: string): string {
@@ -37,27 +34,17 @@ export class ResultComponent implements OnInit {
   }
 
   constructor(
-    private playerService: PlayerService,
     private personalResultService: PersonalResultService,
     public timeFormatService: TimeFormatService,
   ) {}
 
   ngOnInit(): void {
-    this.playerService.getAll().subscribe(
+    this.personalResultService.getAggregate().subscribe(
       (response) => {
-        this.players = response;
+        this.aggregate = response;
       },
       (error) => {
-        console.error('Error getting players:', error);
-      },
-    );
-
-    this.personalResultService.getAll().subscribe(
-      (response) => {
-        this.personalResults = response;
-      },
-      (error) => {
-        console.error('Error getting personalResults:', error);
+        console.error('Error getting aggregate:', error);
       },
     );
   }

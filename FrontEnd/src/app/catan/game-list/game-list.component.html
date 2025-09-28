@@ -33,9 +33,9 @@
         <td mat-cell *matCellDef="let element">{{ element.endTime | date: 'HH:mm:ss' }}</td>
       </ng-container>
 
-      <!-- アイコン -->
+      <!-- プレイヤー -->
       <ng-container matColumnDef="players">
-        <th mat-header-cell *matHeaderCellDef>アイコン</th>
+        <th mat-header-cell *matHeaderCellDef>プレイヤー</th>
         <td mat-cell *matCellDef="let element">
           <ng-container *ngFor="let player of element.players; let isLast = last">
             <img
