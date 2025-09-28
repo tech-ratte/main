@@ -55,11 +55,11 @@ class PersonalResultViewSet(viewsets.ModelViewSet):
             longestRoad=Sum(Case(When(longestRoad=True, then=1), default=0, output_field=IntegerField())),
             largestArmy=Sum(Case(When(largestArmy=True, then=1), default=0, output_field=IntegerField())),
             halfPoint=Sum('halfPoint'),
-            yellowFriend=Sum('yellowFriend'),
-            greenFriend=Sum('greenFriend'),
-            readFriend=Sum('readFriend'),
-            blueFriend=Sum('blueFriend'),
-            merchant=Sum('merchant'),
+            yellowFriend=Sum(Case(When(yellowFriend=True, then=1), default=0, output_field=IntegerField())),
+            greenFriend=Sum(Case(When(greenFriend=True, then=1), default=0, output_field=IntegerField())),
+            readFriend=Sum(Case(When(readFriend=True, then=1), default=0, output_field=IntegerField())),
+            blueFriend=Sum(Case(When(blueFriend=True, then=1), default=0, output_field=IntegerField())),
+            merchant=Sum(Case(When(merchant=True, then=1), default=0, output_field=IntegerField())),
             saviourPoint=Sum('saviourPoint'),
             **{
                 f'color_{c}': Count(Case(When(color=c, then=1))) for c in COLORS
