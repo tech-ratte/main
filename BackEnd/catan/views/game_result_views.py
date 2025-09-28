@@ -32,6 +32,6 @@ class GameResultViewSet(viewsets.ModelViewSet):
     # Player情報を追加
     @action(detail=False, methods=['get'], url_path='game-info')
     def gameInfo(self, request):
-        game_results = GameResult.objects.prefetch_related('personalresult_set__player').order_by('-date')
+        game_results = GameResult.objects.prefetch_related('personalresult_set__player').order_by('-created_at')
         serializer = self.get_serializer(game_results, many=True)
         return Response(serializer.data, status=200)
