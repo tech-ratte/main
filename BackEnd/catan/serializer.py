@@ -7,11 +7,6 @@ class PlayerSerializer(serializers.ModelSerializer):
         model = Player
         fields = '__all__'
 
-class GameResultSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = GameResult
-        fields = '__all__'
-
 class PersonalResultSerializer(serializers.ModelSerializer):
     player = serializers.PrimaryKeyRelatedField(queryset=Player.objects.all())
     game = serializers.PrimaryKeyRelatedField(queryset=GameResult.objects.all())
@@ -35,3 +30,21 @@ class PersonalResultSerializer(serializers.ModelSerializer):
         representation['player'] = player_data
         
         return representation
+
+class GameResultSerializer(serializers.ModelSerializer):
+    players = serializers.SerializerMethodField()
+
+    class Meta:
+        model = GameResult
+        fields = '__all__'
+        extra_fields = ['players']
+
+    def get_players(self, obj):
+        return [
+            {
+                'name': pr.player.name,
+                'icon': pr.player.icon.url,
+                'color': pr.color
+            }
+            for pr in obj.personalresult_set.all()
+        ]

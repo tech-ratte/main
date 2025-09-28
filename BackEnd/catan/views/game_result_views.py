@@ -32,24 +32,6 @@ class GameResultViewSet(viewsets.ModelViewSet):
     # Player情報を追加
     @action(detail=False, methods=['get'], url_path='game-info')
     def gameInfo(self, request):
-        # playerを同時に取得
         game_results = GameResult.objects.prefetch_related('personalresult_set__player').order_by('-date')
-        # ページネーションの適用
-        # paginator = CustomPagination()
-        # result_page = paginator.paginate_queryset(game_results, request)
-        # playerを追加
-        game_data = []
-        for game in game_results:
-            player_list = [
-                {"name":personal_result.player.name,
-                            "icon":personal_result.player.icon.url,
-                            "color":personal_result.color
-                }
-                for personal_result in game.personalresult_set.all()
-            ]
-            game_serializer = GameResultSerializer(game)
-            game_dict = game_serializer.data
-            game_dict["players"] = player_list            
-            game_data.append(game_dict)
-        return  Response(game_data, status=200)
-    
+        serializer = self.get_serializer(game_results, many=True)
+        return Response(serializer.data, status=200)
