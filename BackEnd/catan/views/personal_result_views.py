@@ -36,9 +36,9 @@ class PersonalResultViewSet(viewsets.ModelViewSet):
             qs_base = qs_base.filter(game__title=game_title)
 
         qs = qs_base.values(
-            'player__id', 'player__name', 'player__icon', 'player__isGraduated'
+            'player__name', 'player__icon', 'player__isGraduated'
         ).annotate(
-            num=Count('id'),
+            play_count=Count('id'),
             win=Sum(Case(When(win=True, then=1), default=0, output_field=IntegerField())),
             dice2=Sum('dice2'),
             dice3=Sum('dice3'),
@@ -76,12 +76,11 @@ class PersonalResultViewSet(viewsets.ModelViewSet):
             order_dict = {str(o): s[f'order_{o}'] for o in ORDERS}
             player_data = {
                 'player': {
-                    'id': s['player__id'],
                     'name': s['player__name'],
                     'icon': s['player__icon'],
                     'isGraduated': s['player__isGraduated'],
                 },
-                'num': s['num'],
+                'play_count': s['play_count'],
                 'win': s['win'],
                 'color': color_dict,
                 'order': order_dict,

@@ -6,10 +6,15 @@
     </div>
   </div>
 
-  <div class="form-container">
-    <div class="container">
-      <img src="images/home.png" />
+  <div class="ranking-container">
+    <div class="play-count">
+      <h2>プレイ回数</h2>
+      <div *ngFor="let player of play_count_ranking; let i = index" class="player-container">
+        <img [src]="player?.icon" class="icon" style="border: 3px solid" />
+        <h3>{{ player?.name }}: {{ player?.play_count }}回</h3>
+      </div>
     </div>
+
   </div>
 </div>
 {{ aggregate | json }}

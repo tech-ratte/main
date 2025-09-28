@@ -1,3 +1,10 @@
-img {
-  width: 600px;
+.player-container {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  
+  h3 {
+    margin-left: 10px;
+  }
 }
