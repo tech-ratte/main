@@ -6,15 +6,135 @@
     </div>
   </div>
 
-  <div class="ranking-container">
-    <div class="play-count">
+  <div class="ranking-results-container">
+    
+    <div class="ranking-container">
       <h2>プレイ回数</h2>
-      <div *ngFor="let player of play_count_ranking; let i = index" class="player-container">
-        <img [src]="player?.icon" class="icon" style="border: 3px solid" />
-        <h3>{{ player?.name }}: {{ player?.play_count }}回</h3>
+      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: play_count_ranking, value: 'play_count', unit: '回' }"></ng-container>
+    </div>
+
+    <div class="ranking-container">
+      <h2>勝利数</h2>
+      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: win_count_ranking, value: 'win_count', unit: '回' }"></ng-container>
+    </div>
+
+    <div class="ranking-container">
+      <h2>勝率</h2>
+      <div class="player-container">
+        <div *ngFor="let win_rate of win_rate_ranking; let i = index" class="player">
+          <img [src]="win_rate?.player?.icon" class="icon" style="border: 3px solid" />
+          <div class="info">
+            <h3>{{ win_rate?.player?.name }}</h3>
+            <h3>{{ win_rate?.win_rate | number:'1.0-2' }}%</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-container">
+      <h2>総獲得ポイント</h2>
+      <div class="player-container">
+        <div *ngFor="let point of point_ranking; let i = index" class="player">
+          <img [src]="point?.player?.icon" class="icon" style="border: 3px solid" />
+          <div class="info">
+            <h3>{{ point?.player?.name }}</h3>
+            <h3>{{ point?.point}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-container">
+      <h2>道ボーナス（回数）</h2>
+      <div class="player-container">
+        <div *ngFor="let road_count of road_count_ranking; let i = index" class="player">
+          <img [src]="road_count?.player?.icon" class="icon" style="border: 3px solid" />
+          <div class="info">
+            <h3>{{ road_count?.player?.name }}</h3>
+            <h3>{{ road_count?.road_count }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-container">
+      <h2>道ボーナス（確率）</h2>
+      <div class="player-container">
+        <div *ngFor="let road_rate of road_rate_ranking; let i = index" class="player">
+          <img [src]="road_rate?.player?.icon" class="icon" style="border: 3px solid" />
+          <div class="info">
+            <h3>{{ road_rate?.player?.name }}</h3>
+            <h3>{{ road_rate?.road_rate | number:'1.0-2' }}%</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-container">
+      <h2>騎士ボーナス（回数）</h2>
+      <div class="player-container">
+        <div *ngFor="let army_count of army_count_ranking; let i = index" class="player">
+          <img [src]="army_count?.player?.icon" class="icon" style="border: 3px solid" />
+          <div class="info">
+            <h3>{{ army_count?.player?.name }}</h3>
+            <h3>{{ army_count?.army_count }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-container">
+      <h2>騎士ボーナス（確率）</h2>
+      <div class="player-container">
+        <div *ngFor="let army_rate of army_rate_ranking; let i = index" class="player">
+          <img [src]="army_rate?.player?.icon" class="icon" style="border: 3px solid" />
+          <div class="info">
+            <h3>{{ army_rate?.player?.name }}</h3>
+            <h3>{{ army_rate?.army_rate | number:'1.0-2' }}%</h3>
+          </div>
+        </div>
       </div>
     </div>
 
   </div>
 </div>
+
 {{ aggregate | json }}
+
+<ng-template #rankingGroup let-ranking let-value="value" let-unit="unit">
+  <!-- 1位グループ -->
+  <div class="top-group">
+    <ng-container *ngIf="ranking.length > 0">
+      <div class="group-container gold">
+        <h2>1位</h2>
+        <div class="player-container">
+          <div class="player" *ngFor="let player of ranking[0]">
+            <img [src]="player?.icon" class="icon" style="border: 3px solid gold" />
+            <div class="info">
+              <h3>{{ player?.name }}</h3>
+              <h3>{{ player?.[value] }}{{unit}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <!-- 2位以下グループ -->
+  <div class="sub-group">
+    <ng-container *ngFor="let group of ranking.slice(1); let rank = index">
+      <div class="group-container" [ngClass]="{'silver': rank === 0, 'bronze': rank === 1}">
+        <h2>{{ rank + 2 }}位</h2>
+        <div class="player-container">
+          <div class="player" *ngFor="let player of group">
+            <img [src]="player?.icon" class="icon"
+              [style.border]="'3px solid ' + (rank === 0 ? 'silver' : rank === 1 ? 'peru' : '#bbb')" />
+            <div class="info">
+              <h3>{{ player?.name }}</h3>
+              <h3>{{ player?.[value] }}{{unit}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

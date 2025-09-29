@@ -74,10 +74,14 @@ class PersonalResultViewSet(viewsets.ModelViewSet):
         for s in qs:
             color_dict = {c: s[f'color_{c}'] for c in COLORS}
             order_dict = {str(o): s[f'order_{o}'] for o in ORDERS}
+            icon = s['player__icon']
+            if icon:
+                # 絶対パスに変換
+                icon = request.build_absolute_uri(icon)
             player_data = {
                 'player': {
                     'name': s['player__name'],
-                    'icon': s['player__icon'],
+                    'icon': icon,
                     'isGraduated': s['player__isGraduated'],
                 },
                 'play_count': s['play_count'],

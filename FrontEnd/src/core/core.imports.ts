@@ -19,8 +19,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogTitle, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 // graph
 import { NgChartsModule } from 'ng2-charts';
-//badge
+// badge
 import { MatBadgeModule } from '@angular/material/badge';
+// card
+import { MatCardModule } from '@angular/material/card';
 
 export const coreImports = [
   CommonModule,
@@ -49,4 +51,6 @@ export const coreImports = [
   NgChartsModule,
   // badge
   MatBadgeModule,
+  // card
+  MatCardModule,
 ];
