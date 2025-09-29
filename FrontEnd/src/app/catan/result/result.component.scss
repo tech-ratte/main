@@ -3,11 +3,14 @@
   flex-flow: row wrap;
 }
 
+mat-card{
+  margin: 10px 20px;
+}
+
 .ranking-container {
   display: flex;
   align-items: center;
   flex-flow: column;
-  margin: 5px 40px;
 
   h2{
     margin: 5px;
@@ -15,7 +18,7 @@
 
   .top-group{
     .gold{
-      color: #e6c81edc;
+      color: #e6c717f3;
     }
   }
   .sub-group{
@@ -23,7 +26,7 @@
     flex-flow: row;
     
     .silver{
-      color: #c0c0c0d7;
+      color: #a3a3a3;
     }
     .bronze{
       color: #cd853f;

@@ -7,46 +7,62 @@
   </div>
 
   <div class="ranking-results-container">
-    
-    <div class="ranking-container">
-      <h2>プレイ回数</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: play_count_ranking, value: 'play_count', unit: '回' }"></ng-container>
-    </div>
 
-    <div class="ranking-container">
-      <h2>勝利数</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: win_count_ranking, value: 'win_count', unit: '回' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>プレイ回数</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: play_count_ranking, value: 'play_count', unit: '回' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="ranking-container">
-      <h2>勝率</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: win_rate_ranking, value: 'win_rate', unit: '%' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>勝利数</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: win_count_ranking, value: 'win_count', unit: '回' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="ranking-container">
-      <h2>総獲得ポイント</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: point_ranking, value: 'point', unit: '' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>勝率</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: win_rate_ranking, value: 'win_rate', unit: '%' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="ranking-container">
-      <h2>道ボーナス（回数）</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: road_count_ranking, value: 'road_count', unit: '回' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>総獲得ポイント</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: point_ranking, value: 'point', unit: 'ポイント' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="ranking-container">
-      <h2>道ボーナス（確率）</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: road_rate_ranking, value: 'road_rate', unit: '%' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>道ボーナス（回数）</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: road_count_ranking, value: 'road_count', unit: '回' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="ranking-container">
-      <h2>騎士ボーナス（回数）</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: army_count_ranking, value: 'army_count', unit: '回' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>道ボーナス（確率）</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: road_rate_ranking, value: 'road_rate', unit: '%' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
-    <div class="ranking-container">
-      <h2>騎士ボーナス（確率）</h2>
-      <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: army_rate_ranking, value: 'army_rate', unit: '%' }"></ng-container>
-    </div>
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>騎士ボーナス（回数）</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: army_count_ranking, value: 'army_count', unit: '回' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content class="ranking-container">
+        <h2>騎士ボーナス（確率）</h2>
+        <ng-container *ngTemplateOutlet="rankingGroup;context: { $implicit: army_rate_ranking, value: 'army_rate', unit: '%' }"></ng-container>
+      </mat-card-content>
+    </mat-card>
 
   </div>
 </div>
