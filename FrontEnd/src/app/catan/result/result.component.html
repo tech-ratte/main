@@ -62,7 +62,7 @@
             <img [src]="player?.icon" class="icon" style="border: 3px solid gold" />
             <div class="info">
               <h3>{{ player?.name }}</h3>
-              <h3>{{ player?.[value] }}{{unit}}</h3>
+              <h3>{{ player?.[value] | number:'1.0-2'}}{{unit}}</h3>
             </div>
           </div>
         </div>

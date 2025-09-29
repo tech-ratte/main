@@ -452,10 +452,10 @@ export class PlayingGameComponent {
                 this.setCatanColor(this.personalResults[recentTurnElement].color!),
               );
             }
+            this.loading = false;
           });
         });
       });
-    this.loading = false;
     });
   }
 }
