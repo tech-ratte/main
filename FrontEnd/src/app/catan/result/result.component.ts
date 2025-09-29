@@ -13,12 +13,12 @@ export class ResultComponent implements OnInit {
   aggregate: any[] = [];
   play_count_ranking: any[][] = [];
   win_count_ranking: any[][] = [];
-  win_rate_ranking: any[] = [];
-  point_ranking: any[] = [];
-  road_count_ranking: any[] = [];
-  road_rate_ranking: any[] = [];
-  army_count_ranking: any[] = [];
-  army_rate_ranking: any[] = [];
+  win_rate_ranking: any[][] = [];
+  point_ranking: any[][] = [];
+  road_count_ranking: any[][] = [];
+  road_rate_ranking: any[][] = [];
+  army_count_ranking: any[][] = [];
+  army_rate_ranking: any[][] = [];
 
   // 同点の場合に同じ順位にする
   groupRankingByScore(ranking: any[], key: string): any[][] {
@@ -62,52 +62,64 @@ export class ResultComponent implements OnInit {
     this.win_count_ranking = this.groupRankingByScore(win_count_sort, 'win_count');
 
     // 勝率
-    this.win_rate_ranking = this.aggregate
+    const win_rate_sort = this.aggregate
       .map((result) => ({
-        player: result.player,
+        icon: result.player.icon,
+        name: result.player.name,
         win_rate: result.play_count > 0 ? (result.win / result.play_count) * 100 : 0,
       }))
       .sort((a, b) => b.win_rate - a.win_rate);
+    this.win_rate_ranking = this.groupRankingByScore(win_rate_sort, 'win_rate');
 
     // 獲得ポイント
-    this.point_ranking = this.aggregate
+    const point_sort = this.aggregate
       .map((result) => ({
-        player: result.player,
+        icon: result.player.icon,
+        name: result.player.name,
         point: result.point,
       }))
       .sort((a, b) => b.point - a.point);
+    this.point_ranking = this.groupRankingByScore(point_sort, 'point');
     
     // 最長道路獲得回数
-    this.road_count_ranking = this.aggregate
+    const road_count_sort = this.aggregate
       .map((result) => ({
-        player: result.player,
+        icon: result.player.icon,
+        name: result.player.name,
         road_count: result.longestRoad,
       }))
       .sort((a, b) => b.road_count - a.road_count);
+    this.road_count_ranking = this.groupRankingByScore(road_count_sort, 'road_count');
 
     // 最長道路獲得率
-    this.road_rate_ranking = this.aggregate
+    const road_rate_sort = this.aggregate
       .map((result) => ({
-        player: result.player,
+        icon: result.player.icon,
+        name: result.player.name,
         road_rate: result.longestRoad > 0 ? (result.longestRoad / result.play_count) * 100 : 0,
       }))
       .sort((a, b) => b.road_rate - a.road_rate);
+    this.road_rate_ranking = this.groupRankingByScore(road_rate_sort, 'road_rate');
 
     // 最大騎士力獲得回数
-    this.army_count_ranking = this.aggregate
+    const army_count_sort = this.aggregate
       .map((result) => ({
-        player: result.player,
+        icon: result.player.icon,
+        name: result.player.name,
         army_count: result.largestArmy,
       }))
       .sort((a, b) => b.army_count - a.army_count);
+    this.army_count_ranking = this.groupRankingByScore(army_count_sort, 'army_count');
 
     // 最大騎士力獲得率
-    this.army_rate_ranking = this.aggregate
+    const army_rate_sort = this.aggregate
       .map((result) => ({
-        player: result.player,
+        icon: result.player.icon,
+        name: result.player.name,
         army_rate: result.largestArmy > 0 ? (result.largestArmy / result.play_count) * 100 : 0,
       }))
       .sort((a, b) => b.army_rate - a.army_rate);
+    this.army_rate_ranking = this.groupRankingByScore(army_rate_sort, 'army_rate');
   }
 
   constructor(
