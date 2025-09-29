@@ -152,10 +152,11 @@
       *ngFor="let num of [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
       [ngClass]="{ 'now-dice': nowDice === num }"
       (click)="dice(num)"
+      [disabled]="loading"
     >
       {{ num }}
     </button>
-    <button mat-flat-button [disabled]="nowDice == 0" (click)="Register()">続行</button>
+    <button mat-flat-button [disabled]="nowDice == 0 || loading" (click)="Register()">続行</button>
   </div>
 
   <!-- 出目グラフ -->

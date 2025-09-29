@@ -75,9 +75,11 @@ class PersonalResultViewSet(viewsets.ModelViewSet):
             color_dict = {c: s[f'color_{c}'] for c in COLORS}
             order_dict = {str(o): s[f'order_{o}'] for o in ORDERS}
             icon = s['player__icon']
-            if icon:
-                # 絶対パスに変換
-                icon = request.build_absolute_uri(icon)
+            # S3のURLを返す
+            if icon and not str(icon).startswith('http'):
+                from django.conf import settings
+                # S3のバケットURLを組み立て
+                icon = f"https://{settings.AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{icon}"
             player_data = {
                 'player': {
                     'name': s['player__name'],

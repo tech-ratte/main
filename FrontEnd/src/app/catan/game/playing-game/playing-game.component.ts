@@ -67,6 +67,8 @@ export class PlayingGameComponent {
   public allPersonalChartData: ChartData<'bar'>[] = [];
   // 現在選択中の出目
   nowDice: number = 0;
+  // ローディング状態
+  loading: boolean = false;
   // 直近の出目カラー
   recentDiceColor: string[] = [];
 
@@ -197,6 +199,8 @@ export class PlayingGameComponent {
   // }
 
   Register(): void {
+    this.loading = true;
+
     // StartTimeを設定
     if (this.gameResult.startTime == null) {
       this.gameResult.startTime = this.timeFormatService.convertDateToDateTimeField(new Date());
@@ -451,6 +455,7 @@ export class PlayingGameComponent {
           });
         });
       });
+    this.loading = false;
     });
   }
 }
