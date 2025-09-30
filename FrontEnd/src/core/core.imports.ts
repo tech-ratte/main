@@ -23,6 +23,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { MatBadgeModule } from '@angular/material/badge';
 // card
 import { MatCardModule } from '@angular/material/card';
+// spinner
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export const coreImports = [
   CommonModule,
@@ -53,4 +55,6 @@ export const coreImports = [
   MatBadgeModule,
   // card
   MatCardModule,
+  // spinner
+  MatProgressSpinnerModule,
 ];

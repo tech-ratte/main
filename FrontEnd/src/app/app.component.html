@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<!-- app.component.html -->
+<div *ngIf="isLoading" class="spinner-container">
+  <mat-spinner></mat-spinner>
+  <p>サーバーを起動しています...</p>
+</div>
+
+<div *ngIf="!isLoading">
+  <router-outlet></router-outlet>
+</div>

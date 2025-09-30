@@ -31,7 +31,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# SITE_URL = 'http://127.0.0.1:8000'
+# SITE_URL = 'http://127.0.0.1:4200'
 SITE_URL = 'https://main-8r55.onrender.com'
 
 ALLOWED_HOSTS = ['main-8r55.onrender.com', 'frontend-gn26.onrender.com', 'localhost', '127.0.0.1']
