@@ -13,6 +13,6 @@ export class PlayerService extends GenericApiService {
 
   constructor(http: HttpClient) {
     super(http);
-    this.setUrl(super.getBaseUrl() + 'player/');
+    this.setUrl(super.getApiUrl() + 'player/');
   }
 }

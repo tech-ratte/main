@@ -34,6 +34,6 @@ export class GameResultService extends GenericApiService {
 
   constructor(http: HttpClient) {
     super(http);
-    this.setUrl(super.getBaseUrl() + 'gameResult/');
+    this.setUrl(super.getApiUrl() + 'gameResult/');
   }
 }

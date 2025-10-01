@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { coreImports } from '../core/core.imports';
 import { interval, Subscription, takeWhile } from 'rxjs';
@@ -10,36 +10,55 @@ import { HealthCheckService } from '../core/health-check/health-check.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   progress = 0;
-  maxTime = 90000; // 90秒
-  pollInterval = 5000; // 5秒ごとにヘルスチェック
-  private pollSub?: Subscription;
+  loading = true;
+  progressSub?: Subscription;
+  healthSub?: Subscription;
 
-  constructor(private healthCheckService: HealthCheckService) {}
+  constructor(private healthService: HealthCheckService) {}
 
   ngOnInit() {
-    // this.startPolling();
-  }
+    const totalDuration = 90_000; // 90秒
+    const step = 100; // 100msごと
+    const increment = (100 * step) / totalDuration;
 
-  startPolling() {
-    const startTime = Date.now();
-
-    this.pollSub = interval(this.pollInterval)
-      .pipe(
-        takeWhile(() => Date.now() - startTime < this.maxTime && this.progress < 100)
-      )
+    // プログレスバー進行
+    this.progressSub = interval(step)
+      .pipe(takeWhile(() => this.loading && this.progress < 100))
       .subscribe(() => {
-        this.healthCheckService.checkHealth().subscribe(isHealthy => {
-          if (isHealthy) {
-            this.progress = 100;  // サーバーが回復したら即100%
-            this.pollSub?.unsubscribe();
-          } else {
-            // サーバーがまだダウンなら少しずつ進める
-            const elapsed = Date.now() - startTime;
-            this.progress = Math.min((elapsed / this.maxTime) * 100, 99);
+        this.progress = Math.min(this.progress + increment, 100);
+      });
+
+    //  最初にヘルスチェック
+    this.healthService.checkHealth().subscribe((ok) => {
+      if (ok) {
+        this.progress = 100;
+        this.loading = false;
+        this.cleanup();
+      }
+    });
+
+    // 5秒ごとのヘルスチェック
+    this.healthSub = interval(5000)
+      .pipe(takeWhile(() => this.loading))
+      .subscribe(() => {
+        this.healthService.checkHealth().subscribe((ok) => {
+          if (ok) {
+            this.progress = 100;   // 一気に 100%
+            this.loading = false;  // ローディング終了
+            this.cleanup();
           }
         });
       });
+  }
+
+  ngOnDestroy() {
+    this.cleanup();
+  }
+
+  private cleanup() {
+    this.progressSub?.unsubscribe();
+    this.healthSub?.unsubscribe();
   }
 }

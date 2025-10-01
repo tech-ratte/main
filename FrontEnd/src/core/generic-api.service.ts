@@ -6,13 +6,18 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class GenericApiService {
+  private baseUrl = 'https://main-8r55.onrender.com/';
   // 共通のApiUrl（urlを変更する場合はここ）
-  // private baseUrl = 'http://127.0.0.1:4200/api/';
-  private baseUrl = 'https://main-8r55.onrender.com/api/';
+  // private apiUrl = 'http://127.0.0.1:4200/api/';
+  private apiUrl = this.baseUrl + 'api/';
   private url: any;
-  // 共通のApiUrlを渡すメソッド
+  // 共通のBaseUrlを渡すメソッド
   protected getBaseUrl(): string {
     return this.baseUrl;
+  }
+  // 共通のApiUrlを渡すメソッド
+  protected getApiUrl(): string {
+    return this.apiUrl;
   }
   // リクエスト用のUrlをセットするメソッド
   protected setUrl(url: any): void {

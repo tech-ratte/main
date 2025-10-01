@@ -27,6 +27,6 @@ export class PersonalResultService extends GenericApiService {
 
   constructor(http: HttpClient) {
     super(http);
-    this.setUrl(super.getBaseUrl() + 'personalResult/');
+    this.setUrl(super.getApiUrl() + 'personalResult/');
   }
 }
