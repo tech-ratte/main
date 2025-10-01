@@ -1,9 +1,12 @@
-<!-- app.component.html -->
-<div *ngIf="isLoading" class="spinner-container">
-  <mat-spinner></mat-spinner>
-  <p>サーバーを起動しています...</p>
+<!-- <div *ngIf="progress < 100">
+  <mat-spinner
+    mode="determinate"
+    [value]="progress">
+  </mat-spinner>
+  <p>{{ progress | number: '1.0-0' }}% - サーバーに接続中...</p>
 </div>
 
-<div *ngIf="!isLoading">
+<div *ngIf="progress === 100">
   <router-outlet></router-outlet>
-</div>
+</div> -->
+<router-outlet></router-outlet>
