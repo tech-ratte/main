@@ -7,11 +7,17 @@ import { ResultComponent } from './catan/result/result.component';
 import { PlayingGameComponent } from './catan/game/playing-game/playing-game.component';
 import { GameListComponent } from './catan/game-list/game-list.component';
 import { ***REMOVED******REMOVED***Component } from './***REMOVED***/***REMOVED***.component';
+import { TopComponent } from './***REMOVED***/top/top.component';
+import { GraduationProjectComponent } from './***REMOVED***/graduation-project/graduation-project.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'home' },
-  { path: '***REMOVED***', title: '***REMOVED***' ,
-    component: ***REMOVED******REMOVED***Component
+  { path: '***REMOVED***',
+    component: ***REMOVED******REMOVED***Component,
+    children: [
+      { path: '', component: TopComponent, title: '***REMOVED*** ***REMOVED***' },
+      { path: 'graduation-project', component: GraduationProjectComponent, title: '***REMOVED*** ***REMOVED*** | 卒業研究' },
+    ],
   },
   {
     path: 'catan',
