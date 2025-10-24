@@ -10,7 +10,7 @@ import { ***REMOVED******REMOVED***Component } from './***REMOVED***/***REMOVED*
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'home' },
-  { path: '***REMOVED***',
+  { path: '***REMOVED***', title: '***REMOVED***' ,
     component: ***REMOVED******REMOVED***Component
   },
   {
