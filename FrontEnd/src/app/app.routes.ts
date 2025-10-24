@@ -6,9 +6,13 @@ import { GameComponent } from './catan/game/game.component';
 import { ResultComponent } from './catan/result/result.component';
 import { PlayingGameComponent } from './catan/game/playing-game/playing-game.component';
 import { GameListComponent } from './catan/game-list/game-list.component';
+import { ***REMOVED******REMOVED***Component } from './***REMOVED***/***REMOVED***';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, title: 'home' },
+  { path: '***REMOVED***',
+    component: ***REMOVED******REMOVED***Component
+  },
   {
     path: 'catan',
     component: CatanComponent,
