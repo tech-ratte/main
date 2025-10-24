@@ -25,6 +25,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatCardModule } from '@angular/material/card';
 // spinner
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// tabs
+import { MatTabsModule } from '@angular/material/tabs';
 
 export const coreImports = [
   CommonModule,
@@ -57,4 +59,6 @@ export const coreImports = [
   MatCardModule,
   // spinner
   MatProgressSpinnerModule,
+  // tabs
+  MatTabsModule,
 ];
