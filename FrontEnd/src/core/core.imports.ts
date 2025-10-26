@@ -27,6 +27,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // tabs
 import { MatTabsModule } from '@angular/material/tabs';
+// chips
+import { MatChipsModule } from '@angular/material/chips';
+// accordion
+import { MatAccordion } from '@angular/material/expansion';
+// expansion
+import { MatExpansionModule } from '@angular/material/expansion';
 
 export const coreImports = [
   CommonModule,
@@ -61,4 +67,10 @@ export const coreImports = [
   MatProgressSpinnerModule,
   // tabs
   MatTabsModule,
+  // chips
+  MatChipsModule,
+  // accordion
+  MatAccordion,
+  // expansion
+  MatExpansionModule,
 ];
