@@ -121,14 +121,35 @@ mat-icon {
 @media (min-width: 1201px) {
 }
 
-
-@media (max-width: 768px) {
-}
 @media (max-width: 1200px) {
   h1 {
-    font-size: 28px;
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
   }
   p {
     font-size: 14px;
   }
+
+  .sub-header {
+    .sub-header-item {
+      margin: 0 10px;
+
+      mat-icon {
+        margin: 5px 5px 0px 0px;
+      }
+
+      img {
+        height: 30px;
+      }
+
+      .github-img {
+        height: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
 }
