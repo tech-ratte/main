@@ -1,21 +1,33 @@
-<div class="header-container">
-  <div class="header-image">
-    <a [routerLink]="['./']"><img src="images/catan/header_catan.png" /></a>
-  </div>
-  <div class="header-link">
-    <button mat-flat-button [routerLink]="['./']">
-      <mat-icon>bar_chart</mat-icon>ランキング
-    </button>
-    <button mat-flat-button [routerLink]="['./game']">
-      <mat-icon>account_balance</mat-icon>ゲーム開始
-    </button>
-    <button mat-flat-button [routerLink]="['./game-list']">
-      <mat-icon>format_list_bulleted</mat-icon>ゲーム一覧
-    </button>
-    <button mat-flat-button [routerLink]="['./player']">
-      <mat-icon>manage_accounts</mat-icon>プレイヤー
-    </button>
-  </div>
+<div *ngIf="progress < 100" class="loading-container">
+  <mat-spinner
+    mode="determinate"
+    [value]="progress">
+  </mat-spinner>
+  <p>　サーバーを起動中...</p>
 </div>
 
-<router-outlet></router-outlet>
+<div *ngIf="progress === 100">
+
+  <div class="header-container">
+    <div class="header-image">
+      <a [routerLink]="['./']"><img src="images/catan/header_catan.png" /></a>
+    </div>
+    <div class="header-link">
+      <button mat-flat-button [routerLink]="['./']">
+        <mat-icon>bar_chart</mat-icon>ランキング
+      </button>
+      <button mat-flat-button [routerLink]="['./game']">
+        <mat-icon>account_balance</mat-icon>ゲーム開始
+      </button>
+      <button mat-flat-button [routerLink]="['./game-list']">
+        <mat-icon>format_list_bulleted</mat-icon>ゲーム一覧
+      </button>
+      <button mat-flat-button [routerLink]="['./player']">
+        <mat-icon>manage_accounts</mat-icon>プレイヤー
+      </button>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>
